@@ -2,6 +2,7 @@ const router = require("express").Router({ mergeParams: true });
 const service = require("../services");
 const { errorHandler, responseHandler } = require("../libs/responseHandler");
 const { SUCCESS_MESSAGES, STATUS_CODES } = require("../constants");
+const validateInputFields = require("../middlewares/inputValidator");
 
 router.post("/register", async (req, res) => {
   try {
