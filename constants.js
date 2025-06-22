@@ -16,7 +16,8 @@ const ERRORS = {
   ERROR_LOADING_ENVIRONMENT_VARIABLES: "[ERROR] in loading environment variables",
   INTERNAL_SERVER_ERROR: "Internal server error",
   USER_NOT_FOUND: "User not found",
-  INCORRECT_PASSWORD: "Incorrect Password"
+  INCORRECT_PASSWORD: "Incorrect Password",
+  PERMISSION_DENIED: "Permission denied"
 };
 const DEFAULT_ERROR = {
   MESSAGE: "Something broke in server, please contact support!",
