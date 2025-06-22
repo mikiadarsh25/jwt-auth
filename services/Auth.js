@@ -2,8 +2,8 @@
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { CustomError } = require("../libs/errorHandler");
-const {ERRORS, STATUS_CODES} = require("../constants")
+const { CustomError } = require("../libs/responseHandler");
+const { ERRORS, STATUS_CODES } = require("../constants");
 
 const registerUser = async ({ userName, password }) => {
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -16,13 +16,18 @@ const getRegisteredUser = async ({ userName, password }) => {
   console.log(user);
   if (!user) {
     throw new CustomError({
-      errorDescription,
-      errorObject,
-      response: { message, statusCode }
+      errorDescription: ERRORS.USER_NOT_FOUND,
+      errorObject: {},
+      response: { message: ERRORS.USER_NOT_FOUND, statusCode: STATUS_CODES.FAILURE.CLIENT_SIDE_ERROR.RESOURCE_NOT_FOUND }
     });
   }
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {
+    throw new CustomError({
+      errorDescription: ERRORS.INCORRECT_PASSWORD,
+      errorObject: {},
+      response: { message: ERRORS.INCORRECT_PASSWORD, statusCode: STATUS_CODES.FAILURE.CLIENT_SIDE_ERROR.BAD_REQUEST }
+    });
   }
 
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });

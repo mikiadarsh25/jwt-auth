@@ -36,7 +36,15 @@ const errorHandler = async (error, res, req) => {
   }
 };
 
+const responseHandler = async (response, res) => {
+  const statusCode = response?.statusCode || 200;
+  const message = response?.message || "";
+  const data = response?.data || {};
+  return res.status(statusCode).json({ data, message });
+};
+
 module.exports = {
   CustomError,
-  errorHandler
+  errorHandler,
+  responseHandler
 };

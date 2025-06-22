@@ -1,5 +1,7 @@
 const router = require("express").Router({ mergeParams: true });
 const service = require("../services");
+const { errorHandler, responseHandler } = require("../libs/responseHandler");
+const { SUCCESS_MESSAGES, STATUS_CODES } = require("../constants");
 
 router.post("/register", async (req, res) => {
   try {
@@ -7,9 +9,12 @@ router.post("/register", async (req, res) => {
       params,
       body: { userName, password }
     } = req;
-    const data = await service.Auth.registerUser({ userName, password });
+    await service.registerUser({ userName, password });
+    const response = { message: SUCCESS_MESSAGES.USER_REGISTERED, statusCode: STATUS_CODES.SUCCESS.POST, data: {} };
+    await responseHandler(response, res);
   } catch (error) {
     console.log(error);
+    await errorHandler(error, req, res);
   }
 });
 
@@ -19,10 +24,12 @@ router.post("/login", async (req, res) => {
       params,
       body: { userName, password }
     } = req;
-    const token = await service.Auth.getRegisteredUser({ userName, password });
-    res.status(200).json({ token });
+    const token = await service.getRegisteredUser({ userName, password });
+    const response = { data: { token }, statusCode: STATUS_CODES.SUCCESS.POST, message: SUCCESS_MESSAGES.LOGIN_SUCCESS };
+    await responseHandler(response, res);
   } catch (error) {
     console.log(error);
+    await errorHandler(error, req, res);
   }
 });
 

@@ -14,7 +14,9 @@ const ENVIRONMENT_FILE_PATH = env => {
 const ERRORS = {
   INVALID_ENVIRONMENT: "[ERROR] invalid environment provided, please provide a valid environment in process.env.NODE_ENV",
   ERROR_LOADING_ENVIRONMENT_VARIABLES: "[ERROR] in loading environment variables",
-  INTERNAL_SERVER_ERROR: "Internal server error"
+  INTERNAL_SERVER_ERROR: "Internal server error",
+  USER_NOT_FOUND: "User not found",
+  INCORRECT_PASSWORD: "Incorrect Password"
 };
 const DEFAULT_ERROR = {
   MESSAGE: "Something broke in server, please contact support!",
@@ -56,4 +58,9 @@ const STATUS_CODES = {
   }
 };
 
-module.exports = { ENVIRONMENTS, PORT, ENVIRONMENT_FILE_PATH, ERRORS, DEFAULT_ERROR, STATUS_CODES };
+const SUCCESS_MESSAGES = {
+  USER_REGISTERED: "User registered successfully",
+  LOGIN_SUCCESS: "User login successfully"
+};
+
+module.exports = { ENVIRONMENTS, PORT, ENVIRONMENT_FILE_PATH, ERRORS, DEFAULT_ERROR, STATUS_CODES, SUCCESS_MESSAGES };
