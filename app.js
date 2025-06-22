@@ -16,7 +16,7 @@ app.use(express.json()); // Parsing JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Parsing URL-encoded request bodies
 
 app.get("/health", (req, res) => {
-  res.status(200).json("Server is healthy");
+    res.status(200).json("Server is healthy");
 });
 
 app.use(routes);
@@ -30,14 +30,14 @@ app.use(routes);
 // Global error handler middleware (Keep this at the end of the middleware stack)
 // To catch any errors that occur in the application.
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(statusCode).json({
-    statusCode: err.statusCode || 500,
-    message: err.message || ERRORS.INTERNAL_SERVER_ERROR
-  });
+    console.error(err.stack);
+    res.status(statusCode).json({
+        statusCode: err.statusCode || 500,
+        message: err.message || ERRORS.INTERNAL_SERVER_ERROR,
+    });
 });
 
 // Starting the server
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+    console.log(`Example app listening on port ${PORT}`);
 });
