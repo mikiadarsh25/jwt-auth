@@ -41,9 +41,13 @@ const getRegisteredUser = async ({ userName, password }) => {
         });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: "1h",
-    });
+    const token = jwt.sign(
+        { email: user.userName },
+        process.env.JWT_SECRET_KEY,
+        {
+            expiresIn: "1h",
+        }
+    );
     return token;
 };
 
